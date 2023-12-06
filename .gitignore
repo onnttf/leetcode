@@ -20,6 +20,9 @@
 # Go workspace file
 go.work
 
+# Go mod file
+go.mod
+
 # Visual Studio Code
 .vscode
 
