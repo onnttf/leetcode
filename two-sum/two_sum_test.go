@@ -10,7 +10,7 @@ func TestTwoSum(t *testing.T) {
 		name   string
 		nums   []int
 		target int
-		output any
+		output []int
 	}{
 		// Add your test cases here
 		{
@@ -35,7 +35,7 @@ func TestTwoSum(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := TwoSum(tt.nums, tt.target)
+			got := twoSum(tt.nums, tt.target)
 			if !reflect.DeepEqual(got, tt.output) {
 				t.Errorf("TwoSum() = %v, want %v", got, tt.output)
 			}

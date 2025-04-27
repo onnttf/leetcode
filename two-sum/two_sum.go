@@ -1,6 +1,6 @@
 package two_sum
 
-func TwoSum(nums []int, target int) []int {
+func twoSum(nums []int, target int) []int {
 	// return v1(nums, target)
 	return v2(nums, target)
 }
