@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"leetcode/script"
 	"os"
+
+	"leetcode/script"
 )
 
 func main() {
