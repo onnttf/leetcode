@@ -15,6 +15,5 @@ func main() {
 	}
 
 	slug := os.Args[1]
-	script.GenerateCode(slug)
-	script.GenerateReadme()
+	script.Generate(slug)
 }
