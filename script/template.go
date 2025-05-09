@@ -2,7 +2,7 @@ package script
 
 var codeTemplate = `package {{.PackageName}}
 
-func {{.FuncName}}(input ...any) any {
+func {{.FuncName}}(input any) any {
     // TODO: implement your solution here
     return nil
 }
@@ -15,10 +15,10 @@ import (
 	"reflect"
 )
 
-func Test{{.FuncName}}(t *testing.T) {
+func {{.TestFuncName}}(t *testing.T) {
 	tests := []struct {
 		name   string
-		input  []any
+		input  any
 		output any
 	}{
 		// Add your test cases here
@@ -26,7 +26,7 @@ func Test{{.FuncName}}(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := {{.FuncName}}(tt.input...)
+			got := {{.FuncName}}(tt.input)
 			if !reflect.DeepEqual(got, tt.output) {
 				t.Errorf("{{.FuncName}}() = %v, want %v", got, tt.output)
 			}

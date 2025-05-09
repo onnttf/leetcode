@@ -25,22 +25,23 @@ func Generate(slug string) {
 		panic("slug cannot be empty")
 	}
 
-	var nonEmptySlugParts []string
+	var nonEmptySlugPartList []string
 	for part := range strings.SplitSeq(slug, "-") {
 		if part != "" {
-			nonEmptySlugParts = append(nonEmptySlugParts, part)
+			nonEmptySlugPartList = append(nonEmptySlugPartList, strings.ToLower(part))
 		} else {
 			panic("invalid slug format: empty part found")
 		}
 	}
 
-	if len(nonEmptySlugParts) == 0 {
+	if len(nonEmptySlugPartList) == 0 {
 		panic("invalid slug format: no valid parts found")
 	}
 
-	dir := strings.Join(nonEmptySlugParts, "-")
-	fileName := strings.Join(nonEmptySlugParts, "_")
+	dir := strings.Join(nonEmptySlugPartList, "-")
+	fileName := strings.Join(nonEmptySlugPartList, "_")
 	packageName := fileName
+
 	codeFile := filepath.Join(dir, fileName+codeFileSuffix)
 	testFile := filepath.Join(dir, fileName+testFileSuffix)
 
@@ -57,17 +58,11 @@ func Generate(slug string) {
 		panic(fmt.Sprintf("failed to create directory %s: %v", dir, err))
 	}
 
-	caser := cases.Title(language.English)
-	funcName := ""
-	for _, v := range nonEmptySlugParts {
-		funcName += caser.String(v)
-	}
-
-	if err := writeFile(codeFile, codeTemplate, packageName, funcName); err != nil {
+	if err := writeFile(codeFile, codeTemplate, packageName, nonEmptySlugPartList); err != nil {
 		panic(fmt.Sprintf("failed to write code file: %v", err))
 	}
 
-	if err := writeFile(testFile, testTemplate, packageName, funcName); err != nil {
+	if err := writeFile(testFile, testTemplate, packageName, nonEmptySlugPartList); err != nil {
 		panic(fmt.Sprintf("failed to write test file: %v", err))
 	}
 
@@ -77,7 +72,7 @@ func Generate(slug string) {
 }
 
 // writeFile creates a file with the given template and data
-func writeFile(file, tmpl, packageName, funcName string) error {
+func writeFile(file, tmpl, packageName string, slugPartList []string) error {
 	f, err := os.Create(file)
 	if err != nil {
 		return fmt.Errorf("failed to create file %s: %w", file, err)
@@ -89,9 +84,28 @@ func writeFile(file, tmpl, packageName, funcName string) error {
 		return fmt.Errorf("failed to parse template: %w", err)
 	}
 
+	caser := cases.Title(language.English)
+
+	funcName := ""
+	testFuncName := "Test"
+
+	for _, v := range slugPartList {
+		v := strings.ToLower(v)
+		titleV := caser.String(v)
+
+		if funcName == "" {
+			funcName += v
+		} else {
+			funcName += titleV
+		}
+
+		testFuncName += titleV
+	}
+
 	data := map[string]string{
-		"PackageName": packageName,
-		"FuncName":    funcName,
+		"PackageName":  packageName,
+		"FuncName":     funcName,
+		"TestFuncName": testFuncName,
 	}
 
 	if err := t.Execute(f, data); err != nil {
@@ -109,6 +123,7 @@ func updateReadme(slug, codeFile string) error {
 
 	contentBytes, readErr := os.ReadFile(readmePath)
 	var existingEntries []string
+
 	if readErr == nil {
 		lines := strings.SplitSeq(string(contentBytes), "\n")
 		for line := range lines {
@@ -123,7 +138,8 @@ func updateReadme(slug, codeFile string) error {
 	found := slices.Contains(existingEntries, newEntry)
 
 	if !found {
-		updatedEntries := append([]string{newEntry}, existingEntries...) // Add new entry at the beginning
+		// Add new entry at the beginning
+		updatedEntries := append([]string{newEntry}, existingEntries...)
 
 		var contentLines []string
 		contentLines = append(contentLines, leetcodeSolutionsHeader)
@@ -132,9 +148,11 @@ func updateReadme(slug, codeFile string) error {
 		contentLines = append(contentLines, "") // Add an empty line at the end
 
 		updatedContent := strings.Join(contentLines, "\n")
+
 		if err := os.WriteFile(readmePath, []byte(updatedContent), 0o644); err != nil {
 			return fmt.Errorf("error updating %s: %w", readmePath, err)
 		}
+
 		fmt.Println("✅", readmePath, "updated.")
 	} else {
 		fmt.Println("✅", readmePath, "already contains entry for", slug)
