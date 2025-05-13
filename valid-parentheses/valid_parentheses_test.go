@@ -12,10 +12,10 @@ func TestValidParentheses(t *testing.T) {
 		output bool
 	}{
 		// Add your test cases here
-		{"Test1", "()", true},
-		{"Test2", "()[]{}", true},
-		{"Test3", "(]", false},
-		{"Test4", "([])", true},
+		{"Test 1", "()", true},
+		{"Test 2", "()[]{}", true},
+		{"Test 3", "(]", false},
+		{"Test 4", "([])", true},
 	}
 
 	for _, tt := range tests {
