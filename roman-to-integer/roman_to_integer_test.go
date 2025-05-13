@@ -13,27 +13,27 @@ func TestRomanToInteger(t *testing.T) {
 	}{
 		// Add your test cases here
 		{
-			name:   "Test1",
+			name:   "Test 1",
 			input:  "III",
 			output: 3,
 		},
 		{
-			name:   "Test2",
+			name:   "Test 2",
 			input:  "IV",
 			output: 4,
 		},
 		{
-			name:   "Test3",
+			name:   "Test 3",
 			input:  "IX",
 			output: 9,
 		},
 		{
-			name:   "Test4",
+			name:   "Test 4",
 			input:  "LVIII",
 			output: 58,
 		},
 		{
-			name:   "Test5",
+			name:   "Test 5",
 			input:  "MCMXCIV",
 			output: 1994,
 		},
