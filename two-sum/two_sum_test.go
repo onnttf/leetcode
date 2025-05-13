@@ -14,19 +14,19 @@ func TestTwoSum(t *testing.T) {
 	}{
 		// Add your test cases here
 		{
-			name:   "Test1",
+			name:   "Test 1",
 			nums:   []int{2, 7, 11, 15},
 			target: 9,
 			output: []int{0, 1},
 		},
 		{
-			name:   "Test2",
+			name:   "Test 2",
 			nums:   []int{3, 2, 4},
 			target: 6,
 			output: []int{1, 2},
 		},
 		{
-			name:   "Test3",
+			name:   "Test 3",
 			nums:   []int{3, 3},
 			target: 6,
 			output: []int{0, 1},
