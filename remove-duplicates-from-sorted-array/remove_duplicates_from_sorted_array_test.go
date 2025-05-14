@@ -20,7 +20,7 @@ func TestRemoveDuplicatesFromSortedArray(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := removeDuplicates(tt.input)
 			if !reflect.DeepEqual(got, tt.output) {
-				t.Errorf("removeDuplicatesFromSortedArray() = %v, want %v", got, tt.output)
+				t.Errorf("removeDuplicates() = %v, want %v", got, tt.output)
 			}
 		})
 	}

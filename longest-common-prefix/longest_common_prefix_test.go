@@ -22,7 +22,7 @@ func TestLongestCommonPrefix(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := longestCommonPrefix(tt.input)
 			if !reflect.DeepEqual(got, tt.output) {
-				t.Errorf("LongestCommonPrefix() = %v, want %v", got, tt.output)
+				t.Errorf("longestCommonPrefix() = %v, want %v", got, tt.output)
 			}
 		})
 	}

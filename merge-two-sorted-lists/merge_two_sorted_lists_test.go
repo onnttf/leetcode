@@ -37,7 +37,7 @@ func TestMergeTwoSortedLists(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := mergeTwoLists(tt.list1, tt.list2)
 			if !reflect.DeepEqual(got, tt.output) {
-				t.Errorf("mergeTwoSortedLists() = %v, want %v", got, tt.output)
+				t.Errorf("mergeTwoLists() = %v, want %v", got, tt.output)
 			}
 		})
 	}

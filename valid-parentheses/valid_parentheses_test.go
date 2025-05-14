@@ -22,7 +22,7 @@ func TestValidParentheses(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := isValid(tt.input)
 			if !reflect.DeepEqual(got, tt.output) {
-				t.Errorf("validParentheses() = %v, want %v", got, tt.output)
+				t.Errorf("isValid() = %v, want %v", got, tt.output)
 			}
 		})
 	}

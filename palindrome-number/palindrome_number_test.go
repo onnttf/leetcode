@@ -21,7 +21,7 @@ func TestIsPalindrome(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := isPalindrome(tt.input)
 			if !reflect.DeepEqual(got, tt.output) {
-				t.Errorf("PalindromeNumber() = %v, want %v", got, tt.output)
+				t.Errorf("isPalindrome() = %v, want %v", got, tt.output)
 			}
 		})
 	}
