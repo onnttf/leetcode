@@ -1,5 +1,6 @@
 # LeetCode Solutions
 
+- [remove-element](remove-element/remove_element.go)
 - [remove-duplicates-from-sorted-array](remove-duplicates-from-sorted-array/remove_duplicates_from_sorted_array.go)
 - [merge-two-sorted-lists](merge-two-sorted-lists/merge_two_sorted_lists.go)
 - [valid-parentheses](valid-parentheses/valid_parentheses.go)
